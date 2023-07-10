@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from .models import Elevator, ElevatorRequest, ElevatorSystem
-from .serializers import ElevatorSerializer, ElevatorRequestSerializer, ElevatorSystemSerializer
+from .serializers import ElevatorSerializer, ElevatorRequestSerializer, ElevatorSystemSerializer, ElevatorRequestSerializerAll
 import random
 
 
@@ -74,11 +74,11 @@ class CreateElevatorRequest(generics.CreateAPIView):
 
   def perform_create(self, serializer):
     system_id = self.kwargs['system_id']
-    elevator_serial_number = self.kwargs['elevator_serial_number']
+    elevator_id = self.kwargs['elevator_id']
 
     queryset = Elevator.objects.filter(
       elevator_system__id = system_id,
-      elevator_serial_number = elevator_serial_number
+      id = elevator_id
     )
     elevator_object = queryset[0]
 
@@ -86,12 +86,23 @@ class CreateElevatorRequest(generics.CreateAPIView):
     
 
 # Fetch all requests for a given elevator
-class ListElevatorRequests(generic.ListAPIView):
+class ListElevatorRequests(generics.ListAPIView):
+    
+    serializer_class = ElevatorRequestSerializerAll
+
+    def get_queryset(self):
+        system_id = self.kwargs['elevator_id']
+        queryset = ElevatorRequest.objects.filter(elevator__id = system_id)
+
+        return queryset
+
+# Fetch next destination for a given elevator
+class GetElevatorNextDestination(generics.ListAPIView):
     
     serializer_class = ElevatorRequestSerializer
 
     def get_queryset(self):
-        id = self.kwargs['system_id']
-        queryset = ElevatorRequest.objects.filter(elevator__id = id)
+        elevator_id = self.kwargs['elevator_id']
+        queryset = ElevatorRequest.objects.filter(elevator__id = elevator_id).order_by("-id")
 
         return queryset

@@ -19,8 +19,11 @@ urlpatterns=[
     path('elevator/update/<int:elevator_serial_number>',ChangeElevatorStatus.as_view(), name='elevator-update'),
     
     # Create elevator request
-    path('elevator/<int:system_id>/elevator/<int:elevator_serial_number>/req/add-new/',CreateElevatorRequest.as_view(), name='elevator-request-add'),
+    path('elevator/<int:system_id>/request/<int:elevator_id>/add/',CreateElevatorRequest.as_view(), name='elevator-request-add'),
 
     # List elevator requests by elevator id
-    path('elevator-requests/list/<int:elevator_id>',ListElevatorRequests.as_view(),name='elevator-request-list' )
+    path('elevator-requests/list/<int:elevator_id>',ListElevatorRequests.as_view(),name='elevator-request-list' ),
+    
+    # List elevator requests by elevator id
+    path('elevator-requests/get-destination-floor/<int:elevator_id>',GetElevatorNextDestination.as_view(),name='elevator-destination-floor' )
 ]

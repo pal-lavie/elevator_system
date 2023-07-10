@@ -17,4 +17,12 @@ class ElevatorSerializer(serializers.ModelSerializer):
 class ElevatorRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ElevatorRequest
+        fields = (
+        'source_floor', 
+        'destination_floor',
+        )
+
+class ElevatorRequestSerializerAll(serializers.ModelSerializer):
+    class Meta:
+        model = ElevatorRequest
         fields = "__all__"

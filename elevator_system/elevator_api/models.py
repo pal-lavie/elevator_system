@@ -16,7 +16,7 @@ class ElevatorSystem(models.Model):
 
 class Elevator(models.Model):
     """ 
-    Single Elevator class identified by a serial number. Has a forieng key reference to the elevator system.
+    Single Elevator cm,lass identified by a serial number. Has a forieng key reference to the elevator system.
     Each elevator can be active or inactive, holds a current state - moving, idle and stopped, and current floor.
     A door flag is used to identify door state.
     Default current state would be IDLE = 4
