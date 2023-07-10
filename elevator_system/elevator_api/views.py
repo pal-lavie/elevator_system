@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from .models import Elevator, ElevatorRequest, ElevatorSystem
-from .serializers import ElevatorSerializer, ElevatorRequestSerializer, ElevatorSystemSerializer, ElevatorRequestSerializerAll
+from .serializers import ElevatorSerializer, ElevatorRequestSerializer, ElevatorSystemSerializer, ElevatorRequestSerializerAll, ElevatorStateSerializer
 import random
 
 
@@ -45,6 +45,17 @@ class ListElevators(generics.ListAPIView):
     def get_queryset(self):
         id = self.kwargs['system_id']
         queryset = Elevator.objects.filter(elevator_system__id = id)
+
+        return queryset
+    
+# Get elevator associated with specific system ID
+class ListElevatorsById(generics.ListAPIView):
+
+    serializer_class = ElevatorStateSerializer
+
+    def get_queryset(self):
+        elevator_serial_number = self.kwargs['elevator_serial_number']
+        queryset = Elevator.objects.filter(elevator_serial_number = elevator_serial_number)
 
         return queryset
 

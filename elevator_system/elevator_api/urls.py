@@ -15,6 +15,9 @@ urlpatterns=[
     # List all the elevators with given system id
     path('elevator/list/<int:system_id>',ListElevators.as_view(), name="elevator-list"),
     
+    # List the elevator with given elevator_serial_number
+    path('elevator/state/<int:elevator_serial_number>',ListElevatorsById.as_view(), name="elevator-get"),
+    
     # Change elevator status to active/inactive by elevator serial number
     path('elevator/update/<int:elevator_serial_number>',ChangeElevatorStatus.as_view(), name='elevator-update'),
     

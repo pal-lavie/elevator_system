@@ -12,6 +12,15 @@ class ElevatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Elevator
         fields = "__all__"
+        
+        
+class ElevatorStateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Elevator
+        fields = fields = (
+        'current_state', 
+        'current_floor',
+        )
 
 
 class ElevatorRequestSerializer(serializers.ModelSerializer):
