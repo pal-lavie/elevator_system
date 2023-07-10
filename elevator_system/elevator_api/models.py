@@ -28,7 +28,7 @@ class Elevator(models.Model):
     is_active = models.BooleanField(default=True)
     current_state = models.IntegerField(default=4)
     current_floor = models.IntegerField(default=0)
-    is_door_closed = models.BooleanField(default=True)
+    is_door_closed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
 
